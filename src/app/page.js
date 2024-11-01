@@ -3,7 +3,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { fetchBins, monitorOnlineStatus } from "/utils/fetchBins";
+import { fetchBins, monitorOnlineStatus } from ".//utils/fetchBins";
+import './/styles/globals.css';
 
 export default function Home() {
   const [binsData, setBinsData] = useState([]);
@@ -34,23 +35,22 @@ export default function Home() {
   }
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div className="container">
       <h1>BIN Checker</h1>
       <input
         type="text"
         placeholder="Enter BIN number"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ padding: "10px", fontSize: "16px", width: "250px" }}
       />
-      <button onClick={handleSearch} style={{ marginLeft: "10px", padding: "10px" }}>
+      <button onClick={handleSearch} style={{ marginLeft: "10px" }}>
         Search
       </button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message if there's an error */}
+      {error && <p className="error">{error}</p>} {/* Display error message if there's an error */}
 
       {result && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="results">
           {typeof result === "string" ? (
             <p>{result}</p>
           ) : (
@@ -69,6 +69,11 @@ export default function Home() {
           )}
         </div>
       )}
+
+      <footer className="footer">
+        <p>This app was made in 20 minutes, please be kind.</p>
+      </footer>
+      
     </div>
   );
 }

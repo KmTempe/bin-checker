@@ -1,0 +1,110 @@
+/* styles/globals.css */
+
+:root {
+    --background-color: #d4dce7; /* Dark background color */
+    --text-color: #0a0a0a; /* Light text color */
+    --heading-color: #2686f3; /* Light blue color for headings */
+    --border-color: #444c56; /* Dark border color */
+    --input-background: #f1f1f1; /* Dark input background */
+    --button-color: #138594; /* Purple button color */
+    --button-hover-color: #1d5270; /* Darker purple on hover */
+    --error-color: #f85149; /* Red color for error messages */
+    --link-color: #ff0000; /* Light blue for links */
+    --link-hover-color: #1a73e8; /* Darker blue for links on hover */
+    --footer-color: #8bebf1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+h1 {
+    color: var(--heading-color);
+    text-align: center;
+    margin-bottom: 20px; /* Space below heading */
+}
+
+.container {
+    max-width: max-content ; /* Limit width */
+    margin: 0 auto; /* Center container */ 
+    text-align: center; /* Center align text and elements */
+}
+
+.input-container {
+    display: flex; /* Use flexbox for input and button */
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 20px; /* Space between input and results */
+}
+
+input[type="text"] {
+    border: 1px solid var(--border-color); /* Dark border */
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 16px;
+    width: calc(100% - 22px); /* Adjust width for padding */
+    background-color: var(--input-background);
+    color: var(--text-color);
+
+}
+
+input[type="text"]:focus {
+    border-color: var(--heading-color); /* Light blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    background-color: var(--button-color); /* Purple button color */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px; /* Space between input and button */
+    transition: background-color 0.3s ease; /* Smooth transition for button color */
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+button:hover {
+    background-color: var(--button-hover-color); /* Darker purple on hover */
+}
+
+.error {
+    color: var(--error-color); /* Red color for error messages */
+    margin-top: 10px; /* Space above error messages */
+}
+
+a {
+    color: var(--link-color); /* Light blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition for link color */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: var(--link-hover-color); /* Slightly darker blue on hover */
+}
+
+.results {
+    margin-top: 20px;
+    text-align: center; /* Center align results */
+}
+
+.results p {
+    margin: 5px 0; /* Space between result lines */
+}
+
+.footer {
+    background-color: var(--footer-color);
+    text-align: center; /* Center text */
+    padding: 10px; /* Add some padding */
+    position: fixed; /* Allow positioning */
+    bottom:1%; /* Align to the bottom */
+    width: max-content; /* Full width */
+    margin-top: 20px; /* Add some space above the footer */
+    border-radius: 40px; /* Soft curved edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
