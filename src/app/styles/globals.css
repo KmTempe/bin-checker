@@ -1,16 +1,16 @@
 /* styles/globals.css */
 
 :root {
-    --background-color: #d4dce7; /* Dark background color */
-    --text-color: #0a0a0a; /* Light text color */
-    --heading-color: #2686f3; /* Light blue color for headings */
-    --border-color: #444c56; /* Dark border color */
-    --input-background: #f1f1f1; /* Dark input background */
-    --button-color: #138594; /* Purple button color */
-    --button-hover-color: #1d5270; /* Darker purple on hover */
-    --error-color: #f85149; /* Red color for error messages */
-    --link-color: #373ae7; /* Light blue for links */
-    --link-hover-color: #0012b9; /* Darker blue for links on hover */
+    --background-color: #d4dce7;
+    --text-color: #0a0a0a;
+    --heading-color: #2686f3;
+    --border-color: #444c56;
+    --input-background: #f1f1f1;
+    --button-color: #138594;
+    --button-hover-color: #1d5270;
+    --error-color: #f85149;
+    --link-color: #373ae7;
+    --link-hover-color: #0012b9;
     --footer-color: #8bebf1;
 }
 
@@ -22,89 +22,105 @@ body {
     color: var(--text-color);
 }
 
-h1 {
-    color: var(--heading-color);
-    text-align: center;
-    margin-bottom: 20px; /* Space below heading */
-}
-
 .container {
-    max-width: max-content ; /* Limit width */
-    margin: 0 auto; /* Center container */ 
-    text-align: center; /* Center align text and elements */
+    max-width: max-content;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .input-container {
-    display: flex; /* Use flexbox for input and button */
-    justify-content: center; /* Center horizontally */
-    margin-bottom: 20px; /* Space between input and results */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 input[type="text"] {
-    border: 1px solid var(--border-color); /* Dark border */
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 10px;
     font-size: 16px;
-    width: calc(100% - 22px); /* Adjust width for padding */
+    width: calc(100% - 22px);
     background-color: var(--input-background);
     color: var(--text-color);
-
-}
-
-input[type="text"]:focus {
-    border-color: var(--heading-color); /* Light blue border on focus */
-    outline: none; /* Remove default outline */
 }
 
 button {
-    background-color: var(--button-color); /* Purple button color */
+    background-color: var(--button-color);
     color: white;
     border: none;
     border-radius: 6px;
     padding: 10px 15px;
     cursor: pointer;
-    margin-top: 10px; /* Space between input and button */
-    transition: background-color 0.3s ease; /* Smooth transition for button color */
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
 }
 
 button:hover {
-    background-color: var(--button-hover-color); /* Darker purple on hover */
+    background-color: var(--button-hover-color);
 }
 
 .error {
-    color: var(--error-color); /* Red color for error messages */
-    margin-top: 10px; /* Space above error messages */
-}
-
-a {
-    color: var(--link-color); /* Light blue for links */
-    text-decoration: none;
-    transition: color 0.3s ease; /* Smooth transition for link color */
-}
-
-a:hover {
-    text-decoration: underline; /* Underline on hover */
-    color: var(--link-hover-color); /* Slightly darker blue on hover */
+    color: var(--error-color);
+    margin-top: 10px;
 }
 
 .results {
     margin-top: 20px;
-    text-align: center; /* Center align results */
+    text-align: center;
 }
 
 .results p {
-    margin: 5px 0; /* Space between result lines */
+    margin: 5px 0;
 }
 
-.footer {
+/* Navigation Menu */
+.nav-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.nav-menu button {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-menu button:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Info Section */
+.info-section {
+    position: fixed;
+    bottom: 1%; /* Position it at the bottom */
+    left: 1cap ;   /* Align it to the left */
+    right: 1cap ; /* Align it to the right */
     background-color: var(--footer-color);
-    text-align: center; /* Center text */
-    padding: 10px; /* Add some padding */
-    position: fixed; /* Allow positioning */
-    bottom:1%; /* Align to the bottom */
-    width: max-content; /* Full width */
-    margin-top: 20px; /* Add some space above the footer */
-    border-radius: 40px; /* Soft curved edges */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+    z-index: 100;
+    transition: transform 0.3s ease;
+    transform: translateY(100%); /* Start hidden below the view */
+}
+
+.info-section.show {
+    transform: translateY(0); /* Slide into view when active */
+}
+
+.info-section a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.info-section a:hover {
+    color: var(--link-hover-color);
+}
