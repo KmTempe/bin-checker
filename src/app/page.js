@@ -71,7 +71,8 @@ export default function Home() {
       )}
 
       <footer className="footer">
-        <p>This app was made in 20 minutes, please be kind.</p>
+        <p>This app was made in 20 minutes, please be kind.</p> 
+        <p > <a href="https://github.com/KmTempe/bin-checker"> https://github.com/KmTempe/bin-checker </a>  </p>
       </footer>
       
     </div>
