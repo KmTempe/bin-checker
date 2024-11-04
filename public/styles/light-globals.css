@@ -80,6 +80,8 @@ button:hover {
     top: 20px;
     left: 20px;
     z-index: 100;
+    
+
 }
 
 .nav-menu button {
@@ -90,6 +92,7 @@ button:hover {
     padding: 8px 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    
 }
 
 .nav-menu button:hover {
