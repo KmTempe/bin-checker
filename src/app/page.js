@@ -1,10 +1,8 @@
-// pages/index.js
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { fetchBins, monitorOnlineStatus } from "./utils/fetchBins";
-import "./styles/globals.css";
+import "./styles/global.css";
 
 export default function Home() {
   const [binsData, setBinsData] = useState([]);
@@ -12,6 +10,9 @@ export default function Home() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [showLoadingText, setShowLoadingText] = useState(true);
 
   useEffect(() => {
     async function loadBins() {
@@ -25,13 +26,49 @@ export default function Home() {
 
     loadBins();
     const onlineMonitor = monitorOnlineStatus();
-
     return () => clearInterval(onlineMonitor);
   }, []);
+
+  useEffect(() => {
+    // Load theme and set initial state
+    let themeLink = document.getElementById("theme-style");
+
+    if (!themeLink) {
+      themeLink = document.createElement("link");
+      themeLink.id = "theme-style";
+      themeLink.rel = "stylesheet";
+      themeLink.onload = () => {
+        setLoading(false);
+        setTimeout(() => setShowLoadingText(false), 200);
+      };
+      document.head.appendChild(themeLink);
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+    themeLink.href = savedTheme === "dark" ? "/styles/dark-globals.css" : "/styles/light-globals.css";
+    setIsDarkMode(savedTheme === "dark");
+  }, []);
+
+  const toggleTheme = () => {
+    const themeLink = document.getElementById("theme-style");
+    if (isDarkMode) {
+      themeLink.href = "/styles/light-globals.css";
+      localStorage.setItem("theme", "light");
+    } else {
+      themeLink.href = "/styles/dark-globals.css";
+      localStorage.setItem("theme", "dark");
+    }
+    setIsDarkMode(!isDarkMode);
+  };
 
   function handleSearch() {
     const foundBin = binsData.find((bin) => bin.BIN === searchTerm);
     setResult(foundBin || "BIN not found");
+  }
+
+  // Loading screen
+  if (loading || showLoadingText) {
+    return <div className="loading">Loading...</div>;
   }
 
   return (
@@ -39,6 +76,9 @@ export default function Home() {
       {/* Navigation Menu */}
       <nav className="nav-menu">
         <button onClick={() => setShowInfo(!showInfo)}>Info</button>
+        <button onClick={toggleTheme}>
+          Switch to {isDarkMode ? "Light" : "Dark"} Mode
+        </button>
       </nav>
 
       <h1>BIN Checker</h1>
@@ -87,12 +127,11 @@ export default function Home() {
         </div>
       )}
 
-            {/* Info Section */}
-            {showInfo && (
+      {/* Info Section */}
+      {showInfo && (
         <div className={`info-section ${showInfo ? "show" : ""}`}>
           <p>This app was made in 20 minutes, please be kind.</p>
           <p>
-            {" "}
             <a
               href="https://github.com/KmTempe/bin-checker/tree/master"
               target="_blank"
@@ -103,7 +142,6 @@ export default function Home() {
           </p>
         </div>
       )}
-
     </div>
   );
 }
