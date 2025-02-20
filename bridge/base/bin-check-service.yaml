@@ -1,0 +1,21 @@
+# check if there is at least one published port
+
+#! bin-check-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: bin-check-published
+    namespace: bin-checker
+    labels:
+        com.docker.compose.project: bin-checker
+        com.docker.compose.service: bin-check
+spec:
+    selector:
+        com.docker.compose.project: bin-checker
+        com.docker.compose.service: bin-check
+    ports:
+        - name: bin-check-4000
+          port: 4000
+          protocol: TCP
+          targetPort: bin-check-3000
