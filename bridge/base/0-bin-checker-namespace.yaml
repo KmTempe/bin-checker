@@ -1,8 +1,0 @@
-#! 0-bin-checker-namespace.yaml
-# Generated code, do not edit
-apiVersion: v1
-kind: Namespace
-metadata:
-    name: bin-checker
-    labels:
-        com.docker.compose.project: bin-checker

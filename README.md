@@ -58,7 +58,18 @@ GET /api/bin?bin=45717360
 }
 ```
 
+```
+
 ## Deployment
 
+### Vercel
 This project is deployed on Vercel:
 [https://bin-checker-79ewotnqz-kmtempes-projects.vercel.app](https://bin-checker-79ewotnqz-kmtempes-projects.vercel.app)
+
+You can run the production image directly from GitHub Container Registry:
+
+1.  Download `docker-compose.prod.yml`.
+2.  Run:
+    ```bash
+    docker compose -f docker-compose.prod.yml up -d
+    ```

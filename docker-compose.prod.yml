@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bin-check:
+    image: ghcr.io/kmtempe/bin-checker:latest
+    ports:
+      - "4000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: always
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
