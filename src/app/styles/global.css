@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .mono {
+  font-family: 'Fira Code', monospace;
+}
+
 .loading {
     display: flex;
     justify-content: center;
@@ -5,4 +17,7 @@
     height: 100vh; /* Full viewport height */
     font-size: 24px; /* Adjust font size as needed */
     text-align: center; /* Center text horizontally */
+    font-family: 'Fira Code', monospace;
+    color: #64ffda; /* Accent color for loading */
+    background-color: #0a192f;
   }

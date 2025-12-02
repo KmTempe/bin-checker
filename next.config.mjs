@@ -4,7 +4,7 @@ const packageJson = JSON.parse(readFileSync(new URL('./package.json', import.met
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: "standalone",
+    output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
     env: {
         NEXT_PUBLIC_APP_VERSION: packageJson.version,
     },

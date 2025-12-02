@@ -13,8 +13,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [showLoadingText, setShowLoadingText] = useState(true);
 
-  // Removed initial load of bins
-
   useEffect(() => {
     // Load theme and set initial state
     let themeLink = document.getElementById("theme-style");
@@ -23,16 +21,32 @@ export default function Home() {
       themeLink = document.createElement("link");
       themeLink.id = "theme-style";
       themeLink.rel = "stylesheet";
-      themeLink.onload = () => {
+
+      const handleLoad = () => {
         setLoading(false);
         setTimeout(() => setShowLoadingText(false), 200);
       };
+
+      themeLink.onload = handleLoad;
+      themeLink.onerror = handleLoad; // Proceed even if CSS fails
+
       document.head.appendChild(themeLink);
+    } else {
+      setLoading(false);
+      setShowLoadingText(false);
     }
 
     const savedTheme = localStorage.getItem("theme");
     themeLink.href = savedTheme === "dark" ? "/styles/dark-globals.css" : "/styles/light-globals.css";
     setIsDarkMode(savedTheme === "dark");
+
+    // Safety timeout in case onload/onerror never fires
+    const safetyTimeout = setTimeout(() => {
+      setLoading(false);
+      setShowLoadingText(false);
+    }, 2000);
+
+    return () => clearTimeout(safetyTimeout);
   }, []);
 
   const toggleTheme = () => {
@@ -70,6 +84,7 @@ export default function Home() {
     <div className="container">
       {/* Navigation Menu */}
       <nav className="nav-menu">
+        <button onClick={() => window.location.href = 'https://l7feeders.dev/'}>Home</button>
         <button onClick={() => setShowInfo(!showInfo)}>Info</button>
         <button onClick={toggleTheme}>
           Switch to {isDarkMode ? "Light" : "Dark"} Mode
@@ -98,26 +113,29 @@ export default function Home() {
             <p>{result}</p>
           ) : (
             <div>
-              <p>BIN: {result.BIN}</p>
-              <p>Brand: {result.Brand}</p>
-              <p>Type: {result.Type}</p>
-              <p>Category: {result.Category}</p>
-              <p>Issuer: {result.Issuer}</p>
-              <p>Issuer Phone: {result.IssuerPhone || "N/A"}</p>
+              <p><span>BIN:</span> <span>{result.BIN}</span></p>
+              <p><span>Brand:</span> <span>{result.Brand}</span></p>
+              <p><span>Type:</span> <span>{result.Type}</span></p>
+              <p><span>Category:</span> <span>{result.Category}</span></p>
+              <p><span>Issuer:</span> <span>{result.Issuer}</span></p>
+              <p><span>Issuer Phone:</span> <span>{result.IssuerPhone || "N/A"}</span></p>
               <p>
-                Issuer URL:{" "}
-                <a
-                  href={result.IssuerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {result.IssuerUrl || "N/A"}
-                </a>
+                <span>Issuer URL:</span>
+                <span>
+                  <a
+                    href={result.IssuerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--accent-color)' }}
+                  >
+                    {result.IssuerUrl || "N/A"}
+                  </a>
+                </span>
               </p>
-              <p>Country Code 2: {result.isoCode2}</p>
-              <p>Country Code 3: {result.isoCode3}</p>
-              <p>Country Name: {result.CountryName}</p>
-              <p className="source-info" style={{ fontSize: '0.8em', color: '#888', marginTop: '10px' }}>
+              <p><span>Country Code 2:</span> <span>{result.isoCode2}</span></p>
+              <p><span>Country Code 3:</span> <span>{result.isoCode3}</span></p>
+              <p><span>Country Name:</span> <span>{result.CountryName}</span></p>
+              <p className="source-info" style={{ fontSize: '0.8em', color: 'var(--text-secondary)', marginTop: '10px', border: 'none', justifyContent: 'center' }}>
                 Data Source: {result.source}
               </p>
             </div>
