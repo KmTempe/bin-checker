@@ -59,5 +59,10 @@ export async function GET(request) {
     } catch (error) {
         console.error("Error processing BIN request:", error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    } finally {
+        const memoryUsage = process.memoryUsage();
+        const heapUsed = Math.round(memoryUsage.heapUsed / 1024 / 1024);
+        const rss = Math.round(memoryUsage.rss / 1024 / 1024);
+        console.log(`[API] Memory: ${heapUsed}MB (Heap) / ${rss}MB (RSS)`);
     }
 }
