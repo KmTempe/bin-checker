@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
-  bin-check:
-    image: ghcr.io/kmtempe/bin-checker:latest
+  bin-check-prod:
+    image: ghcr.io/kmtempe/bin-checker:master
     ports:
-      - "4000:3000"
+      - "4040:3000"
     environment:
       - NODE_ENV=production
     restart: always
