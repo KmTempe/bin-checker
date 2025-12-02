@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { fetchBins, monitorOnlineStatus } from "./utils/fetchBins";
+import { fetchBinDetails } from "./utils/fetchBins";
 import "./styles/global.css";
 
 export default function Home() {
-  const [binsData, setBinsData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
@@ -14,20 +13,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [showLoadingText, setShowLoadingText] = useState(true);
 
-  useEffect(() => {
-    async function loadBins() {
-      try {
-        const data = await fetchBins();
-        setBinsData(data);
-      } catch (err) {
-        setError("Failed to fetch BIN data.");
-      }
-    }
-
-    loadBins();
-    const onlineMonitor = monitorOnlineStatus();
-    return () => clearInterval(onlineMonitor);
-  }, []);
+  // Removed initial load of bins
 
   useEffect(() => {
     // Load theme and set initial state
@@ -61,9 +47,18 @@ export default function Home() {
     setIsDarkMode(!isDarkMode);
   };
 
-  function handleSearch() {
-    const foundBin = binsData.find((bin) => bin.BIN === searchTerm);
-    setResult(foundBin || "BIN not found");
+  async function handleSearch() {
+    if (!searchTerm) return;
+
+    setError(null);
+    setResult(null);
+
+    try {
+      const data = await fetchBinDetails(searchTerm);
+      setResult(data || "BIN not found");
+    } catch (err) {
+      setError("Failed to fetch BIN data.");
+    }
   }
 
   // Loading screen
@@ -122,6 +117,9 @@ export default function Home() {
               <p>Country Code 2: {result.isoCode2}</p>
               <p>Country Code 3: {result.isoCode3}</p>
               <p>Country Name: {result.CountryName}</p>
+              <p className="source-info" style={{ fontSize: '0.8em', color: '#888', marginTop: '10px' }}>
+                Data Source: {result.source}
+              </p>
             </div>
           )}
         </div>
