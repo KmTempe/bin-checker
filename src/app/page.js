@@ -129,6 +129,7 @@ export default function Home() {
       {showInfo && (
         <div className={`info-section ${showInfo ? "show" : ""}`}>
           <p>This app was made in 20 minutes, please be kind.</p>
+          <p>Version: {process.env.NEXT_PUBLIC_APP_VERSION}</p>
           <p>
             <a
               href="https://github.com/KmTempe/bin-checker/tree/master"
