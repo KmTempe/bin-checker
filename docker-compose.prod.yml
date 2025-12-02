@@ -1,6 +1,6 @@
 services:
   bin-check-prod:
-    image: ghcr.io/kmtempe/bin-checker:master
+    image: ghcr.io/kmtempe/bin-checker:master #you can specify tag here example: ghcr.io/kmtempe/bin-checker:1.1.1-1
     ports:
       - "4040:3000"
     environment:
